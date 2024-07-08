@@ -1,0 +1,112 @@
+<ui:composition template="/WEB-INF/template/generico.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" />
+            <style>
+                .ui-panelgrid td, .ui-panelgrid tr {
+                    border-style: none !important
+                }
+                .centered-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+            </style>
+
+            <p:messages></p:messages>
+            <p:menubar>
+                <p:menuitem value="Eventos" icon="pi pi-calendar" action="principal.xhtml"/>
+                <p:divider layout="vertical"/>
+                <p:menuitem value="Entrar" icon="pi pi-sign-in" action="login.xhtml" />
+            </p:menubar>
+            <div class="centered-content">
+                <div class="card">
+                    <div class="align-content-center">
+                        <h1>Cadastro</h1>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Nome"/>
+                            <p:inputText size="30" value="#{beanProgramacao.programacao.nome}"
+                                         required="true"
+                                         label="Nome"/>
+
+                            <p:outputLabel value="Local"/>
+                            <p:inputText size="30" value="#{beanProgramacao.programacao.local}"
+                                         required="true"
+                                         label="Local"/>
+
+                            <p:outputLabel value="CH"/>
+                            <p:inputText size="30" value="#{beanProgramacao.programacao.ch}"
+                                         required="true"
+                                         label="ch"/>
+
+                            <p:outputLabel value="Quantidade de Vagas"/>
+                            <p:inputNumber value="#{beanProgramacao.programacao.qtdevagas}"
+                                           required="true"
+                                           label="vagas"
+                                           size="15"/>
+
+                            <p:outputLabel value="Status"/>
+                            <p:inputText size="3" value="#{beanProgramacao.programacao.status}"
+                                         required="true"
+                                         label="status"/>
+
+                            <p:outputLabel value="Ministrante"/>
+                            <p:commandButton id="botaoMinistrante" value="Buscar" type="button" icon="pi pi-search" />
+
+                            <p:outputLabel value="#{beanProgramacao.programacao.idministrante.idLong}" id="idMinistranteLabel" />
+                            <p:outputLabel value="#{beanProgramacao.programacao.idministrante.nome}" id="nomeMinistranteLabel" />
+                            
+                            <p:outputLabel value="Semana"/>
+                            <p:commandButton id="botaoSemana" value="Buscar" type="button" icon="pi pi-search" />
+
+                            <p:outputLabel value="#{beanProgramacao.programacao.idSemana.idLong}" id="idSemanaLabel" />
+                            <p:outputLabel value="#{beanProgramacao.programacao.idSemana.nome}" id="nomeSemanaLabel" />
+
+
+                        </p:panelGrid>
+                        <p:commandButton icon="pi pi-save" value="Salvar" styleClass="ui-button-success" action="#{beanProgramacao.adicionar()}" style="margin-top: .5rem"/>
+                        <p:commandButton icon="pi pi-backward" value="Voltar" action="lista_ministrante.xhtml" style="margin-left: .5rem" styleClass="ui-button-secondary"/>
+                    </div>            
+                </div>
+            </div>
+
+            <p:overlayPanel for="botaoMinistrante" dynamic="true" style="width:600px" widgetVar="escolherMinistrante">
+                <p:dataTable var="m" value="#{beanMinistrante.lista}" rows="5" selectionMode="single"
+                             selection="#{beanProgramacao.programacao.idministrante}" rowKey="#{m.idLong}">
+                  <p:ajax event="rowSelect" listener="#{beanProgramacao.onRowSelect}" update=":form:idMinistranteLabel :form:nomeMinistranteLabel" oncomplete="PF('escolherMinistrante').hide()"/>
+
+                    <p:column headerText="ID" style="width: 20px">
+                        <p:outputLabel value="#{m.idLong}"/>
+                    </p:column>
+                    <p:column style="width: 150px" headerText="Nome" sortBy="#{m.nome}" filterBy="#{m.nome}">
+                        <p:outputLabel value="#{m.nome}"/>
+                    </p:column>
+                    <p:column headerText="Email" style="width: 250px">
+                        <p:outputLabel value="#{m.email}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:overlayPanel>
+            
+             <p:overlayPanel for="botaoSemana" dynamic="true" style="width:600px" widgetVar="escolherSemana">
+                 <p:dataTable var="s" value="#{beanSemana.lista}" rows="5" selectionMode="single"
+                              selection="#{beanProgramacao.programacao.idSemana}" rowKey="#{s.idLong}">
+                  <p:ajax event="rowSelect" listener="#{beanProgramacao.onRowSelect}" update=":form:idSemanaLabel :form:nomeSemanaLabel" oncomplete="PF('escolherSemana').hide()"/>
+
+                    <p:column headerText="ID" style="width: 20px">
+                        <p:outputLabel value="#{s.idLong}"/>
+                    </p:column>
+                    <p:column style="width: 250px" headerText="Nome" sortBy="#{s.nome}" filterBy="#{s.nome}">
+                        <p:outputLabel value="#{s.nome}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:overlayPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

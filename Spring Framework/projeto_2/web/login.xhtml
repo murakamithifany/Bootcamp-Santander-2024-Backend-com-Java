@@ -1,0 +1,48 @@
+<ui:composition template="/WEB-INF/template/generico.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="corpo">
+        <h:form id="form">
+            <style>
+                .ui-panelgrid td, .ui-panelgrid tr {
+                    border-style: none !important
+                }
+                .centered-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+            </style>
+
+            <p:messages></p:messages>
+            <p:menubar style="background-color: greenyellow; color: black;">
+                <p:menuitem value="Eventos" icon="pi pi-calendar" action="eventos_demonstracao.xhtml" style="color: white"/>
+                <p:menuitem value="Entrar" icon="pi pi-user" action="login.xhtml"/>
+            </p:menubar>
+            <div class="centered-content">
+                <div class="card">
+                    <div class="align-content-center">
+                        <h1>Realizar acesso</h1>
+                        <p:panelGrid columns="2">
+                            <h:outputLabel for="usuario" value="Usuário:"/>
+                            <p:inputText id="usuario" type="text" placeholder="Digite seu Email" value="#{beanAlunos.aluno.email}" />
+
+                            <h:outputLabel for="senha" value="Senha:"/>
+                            <p:password id="senha" placeholder="Digite sua senha" value="#{beanAlunos.aluno.senha}" />
+
+                            <p:commandButton value="Validar" icon="pi pi-sign-in" styleClass="ui-button-success" action="#{beanAlunos.autenticarLogin()}" update="@form" />
+
+                            <p:outputLabel />
+                            <p:commandLink action="cadastro_aluno.xhtml" class="mr-4" value="Primeiro acesso!"/>
+                        </p:panelGrid>
+                    </div>            
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

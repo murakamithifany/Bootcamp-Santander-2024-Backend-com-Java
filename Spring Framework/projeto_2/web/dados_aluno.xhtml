@@ -1,0 +1,62 @@
+<ui:composition template="/WEB-INF/template/generico.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <h:form id="form">
+            <style>
+                .ui-panelgrid td, .ui-panelgrid tr {
+                    border-style: none !important
+                }
+                .centered-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+            </style>
+
+            <p:messages></p:messages>
+            <p:menubar style="background-color: greenyellow; color: black;">
+                <p:menuitem value="Eventos" icon="pi pi-calendar" action="eventos.xhtml"/>
+                <p:menuitem value="Dados" icon="pi pi-user-edit" action="dados_aluno.xhtml"/>
+                <p:menuitem value="Inscrições" icon="pi pi-list" action="matriculas_aluno.xhtml"/>
+                <p:menuitem value="Sair" icon="pi pi-sign-out" action="#{beanAlunos.irSair()}" />
+            </p:menubar>
+            <div class="centered-content">
+                <div class="card">
+                    <div class="align-content-center">
+                        <h1>Dados do cadastro</h1>
+                        <p:commandButton icon="pi pi-file-edit"  styleClass="ui-button-warning" action="editar_aluno.xhtml" style="margin-top: .5rem"/>
+                        
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Nome"/>
+                            <p:outputLabel value="#{beanAlunos.alunoAutenticado.nome}"/>
+
+                            <p:outputLabel value="CPF"/>
+                            <p:outputLabel id="cpf" value="#{beanAlunos.alunoAutenticado.cpf}"/>
+
+                            <p:outputLabel value="Curso"/>
+                            <p:outputLabel value="#{beanAlunos.alunoAutenticado.curso}"/>
+
+                            <p:outputLabel value="Email"/>
+                            <p:outputLabel value="#{beanAlunos.alunoAutenticado.email}"/>
+
+                            <p:outputLabel value="Login"/>
+                            <p:inputText value="#{beanAlunos.alunoAutenticado.login}"/>
+
+                            <p:outputLabel value="Senha"/>
+                            <p:password id="toggle" value="#{beanAlunos.alunoAutenticado.senha}"
+                                        toggleMask="true"
+                                        redisplay="true"/>
+                        </p:panelGrid>                        
+                        <p:commandButton icon="pi pi-backward" value="Voltar" action="inicial_aluno.xhtml" style="margin-left: .5rem" styleClass="ui-button-secondary"/>
+                    </div>            
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>  

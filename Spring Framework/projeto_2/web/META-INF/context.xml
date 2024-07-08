@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/projeto_2">
+  <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="projeto2" password="Esqueci@senha2020" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/db_projeto2?zeroDateTimeBehavior=CONVERT_TO_NULL" username="root"/>
+</Context>
